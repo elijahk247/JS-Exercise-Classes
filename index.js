@@ -84,8 +84,18 @@ class Car {
     this.tank += gallons;
   }
   drive(distance) {
-    this.odometer += distance;
+    let possibleDistance = this.milesPerGallon * this.tank;
 
+    if(distance > possibleDistance) {
+      this.odometer += possibleDistance;
+      this.tank = 0;
+
+      return `I ran out of fuel at ${this.odometer}`;
+    } else {
+      this.odometer += distance;
+      this.tank -= distance / this.milesPerGallon;
+    }
+    
   }
 
 }
@@ -168,12 +178,12 @@ class Student extends Lambdasian {
     this.favSubjects = attributes.favSubjects;
   }
   listSubjects() {
-    let subjects = 'Loving ';
+    let everyClass = 'Loving ';
 
-    for(let i = 0; i < this.favSubjects; i++) {
-      subjects += this.favSubjects[i];
+    for(let i = 0; i < this.favSubjects.length; i++) {
+      everyClass += this.favSubjects[i] +', ';
     }
-    return subjects.substring(0, subjects.length - 1) + '!';
+    return everyClass;
   }
   PRAssignment(subject) {
     return `${this.name} has submitted a PR for ${subject}`;
